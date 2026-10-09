@@ -1,0 +1,7 @@
+endpoint,best_2d,best_2d_score,best_2d3d,best_2d3d_score,lift,lift_ci_low,lift_ci_high,helps_by_rule
+esol,mordred,0.9512,mordred3d,0.9529,0.0017,-0.0006,0.0041,False
+freesolv,mordred,0.9584,mordred3d,0.9651,0.0067,0.002,0.013,False
+lipophilicity,mordred,0.7977,mordred3d,0.7957,-0.002,-0.0065,0.0026,False
+bradley_mp,mordred,0.8726,mordred3d,0.8747,0.0021,0.0001,0.0043,False
+bace,mordred,0.8837,mordred3d,0.885,0.0014,-0.0025,0.0054,False
+bbbp,mordred,0.9188,mordred3d,0.9183,-0.0005,-0.0048,0.0037,False

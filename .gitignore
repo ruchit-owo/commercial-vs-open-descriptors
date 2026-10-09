@@ -1,0 +1,44 @@
+# Environments
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Raw downloads are large and redistributable only from their original sources;
+# the manifest in PROVENANCE.md records where they come from.
+data/raw/
+
+# Cached feature matrices can be regenerated from the raw data and the loaders.
+# They are large, so they stay out of the repo; delete data/features to rebuild.
+data/features/
+
+# Local editor and assistant config files, not part of the project itself.
+CLAUDE.md
+.cursor/
+.aider*
+.claude/
+*.chat
+*.prompt
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# LaTeX build artefacts
+*.aux
+*.log
+*.out
+*.synctex.gz
+report/build*.log
+
+# Writeups, personal study notes and reviewer-facing material are kept out of the
+# public code repository: the research note and summary, the study guide, the
+# verification note and the reviewer bundle all live under report/.
+report/
+
+# Personal, cross-repo audit protocol kept local to the machine.
+AUDIT.md

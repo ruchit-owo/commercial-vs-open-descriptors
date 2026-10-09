@@ -1,0 +1,7 @@
+representation,endpoint,status,n_columns,n_molecules,n_missing_molecules,missing_cell_fraction
+mordred,esol,ok,1613,1117,0,0.13061
+mordred,freesolv,ok,1613,642,0,0.15718
+mordred,lipophilicity,ok,1613,4200,0,0.09251
+mordred,bradley_mp,ok,1613,10000,0,0.11633
+mordred,bace,ok,1613,1512,0,0.08787
+mordred,bbbp,ok,1613,1955,0,0.09765

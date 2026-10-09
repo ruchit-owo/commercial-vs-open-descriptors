@@ -1,0 +1,13 @@
+endpoint,representation,n_columns,n_molecules,missing_cell_fraction
+esol,rdkit3d,911,1117,0.0
+esol,mordred3d,1826,1117,0.11537
+freesolv,rdkit3d,911,642,1e-05
+freesolv,mordred3d,1826,642,0.13885
+lipophilicity,rdkit3d,911,4200,0.00024
+lipophilicity,mordred3d,1826,4200,0.08186
+bradley_mp,rdkit3d,911,10000,0.0013
+bradley_mp,mordred3d,1826,10000,0.10349
+bace,rdkit3d,911,1512,0.0
+bace,mordred3d,1826,1512,0.07762
+bbbp,rdkit3d,911,1955,0.00051
+bbbp,mordred3d,1826,1955,0.08654

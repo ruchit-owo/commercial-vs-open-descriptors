@@ -1,0 +1,7 @@
+endpoint,alvadesc_2d,alvadesc_3d_only,alvadesc_2d3d,alva_3d_lift,lift_ci_low,lift_ci_high,alva_3d_helps,open_3d_only,best_open_2d3d,best_open_2d3d_score,alva_2d3d_minus_best_open_2d3d,alva3d_minus_open3d
+esol,0.9525,0.9442,0.9543,0.0019,-0.0024,0.0056,False,0.9135,mordred3d,0.9529,0.0014,0.0307
+freesolv,0.9783,0.9513,0.9701,-0.0082,-0.022,0.0005,False,0.8926,mordred3d,0.9651,0.005,0.0587
+lipophilicity,0.8352,0.7519,0.832,-0.0032,-0.0093,0.0031,False,0.6601,mordred3d,0.7957,0.0363,0.0918
+bradley_mp,0.8787,0.8618,0.8798,0.0011,-0.0016,0.004,False,0.8345,mordred3d,0.8747,0.0051,0.0273
+bace,0.8858,0.8632,0.8885,0.0026,-0.0034,0.0089,False,0.8457,mordred3d,0.885,0.0035,0.0175
+bbbp,0.9178,0.8922,0.9137,-0.0041,-0.0092,0.0009,False,0.8812,mordred3d,0.9183,-0.0046,0.011

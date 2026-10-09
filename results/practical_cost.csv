@@ -1,0 +1,6 @@
+representation,endpoint,n_molecules_timed,n_descriptors,seconds_per_1000,failure_rate,missing_cell_fraction,full_missing_molecules,full_mean_missing_cells
+alvadesc,lipophilicity,500,4215,6.55,0.0,0.0004,,
+rdkit2d,lipophilicity,500,217,8.57,0.0,0.0,,
+mordred,lipophilicity,500,1613,99.63,0.0,0.0901,0.0,0.11369166666666668
+ecfp4,lipophilicity,500,2048,0.19,0.0,0.0,,
+maccs,lipophilicity,500,167,0.99,0.0,0.0,,

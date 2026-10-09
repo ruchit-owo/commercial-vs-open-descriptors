@@ -1,0 +1,7 @@
+endpoint,rows_in,parse_failures,duplicates_collapsed,conflicts_dropped,rows_out,task,baseline
+esol,1128,0,11,0,1117,regression,mean predictor RMSE 2.095
+freesolv,642,0,0,0,642,regression,mean predictor RMSE 3.845
+lipophilicity,4200,0,0,0,4200,regression,mean predictor RMSE 1.203
+bradley_mp,28645,292,8038,0,10000,regression,mean predictor RMSE 91.818
+bace,1513,0,1,0,1512,classification,majority 0.544 (prevalence 0.456)
+bbbp,2050,11,62,22,1955,classification,majority 0.764 (prevalence 0.764)

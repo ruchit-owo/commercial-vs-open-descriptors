@@ -1,0 +1,148 @@
+# Central configuration. Everything downstream reads from here so there is a
+# single place to change a seed or a path, and nothing is hard-coded in scripts.
+# The values here mirror ANALYSIS_PLAN.md; the plan is the pre-registered source
+# of truth and this file must not drift from it.
+
+seed: 20260910
+
+paths:
+  raw: data/raw
+  processed: data/processed
+  features: data/features
+  results: results
+  tables: tables
+  figures: figures
+
+# MoleculeNet mirror, checked 2026-09-04 (see the plan).
+deepchem_base: https://deepchemdata.s3-us-west-1.amazonaws.com/datasets/
+
+# alvaDesc is only needed for the phase-2 feature export. Path is machine-local;
+# override with the ALVADESC_CLI environment variable if it moves.
+alvadesc:
+  cli: D:/alvaDesc/alvaDescCLI.exe
+
+# --- Endpoints (the pre-registration; do not edit after results exist) --------
+# task is regression or classification; metric is the primary, scale-free metric
+# used in the paired cross-endpoint analysis.
+endpoints:
+  - name: esol
+    task: regression
+    metric: spearman
+    source: delaney-processed.csv
+    smiles_col: smiles
+    target_col: measured log solubility in mols per litre
+  - name: freesolv
+    task: regression
+    metric: spearman
+    source: SAMPL.csv
+    smiles_col: smiles
+    target_col: expt
+  - name: lipophilicity
+    task: regression
+    metric: spearman
+    source: Lipophilicity.csv
+    smiles_col: smiles
+    target_col: exp
+  - name: bradley_mp
+    task: regression
+    metric: spearman
+    source: BradleyMeltingPointDataset.xlsx   # placed in data/raw by hand
+    smiles_col: smiles
+    target_col: mpC
+    subsample: 10000          # per the large-set rule; drawn with the global seed
+  - name: bace
+    task: classification
+    metric: roc_auc
+    source: bace.csv
+    smiles_col: mol
+    target_col: Class
+  - name: bbbp
+    task: classification
+    metric: roc_auc
+    source: BBBP.csv
+    smiles_col: smiles
+    target_col: p_np
+  - name: nucleoside_gelation
+    task: classification
+    metric: roc_auc
+    source: nucleoside_gelation.csv          # own prior work; supplied separately
+    smiles_col: smiles
+    target_col: label
+    pending: true            # data not yet in the repo; skipped until provided
+
+  # Exploratory endpoints (not part of the pre-registered seven; added 2026-09-27
+  # to test whether 3D descriptors or alvaDesc help on a property that is driven by
+  # 3D sterics. Kraken is a library of monodentate phosphine ligands. Buried volume
+  # is the canonical 3D steric parameter; HOMO energy is an electronic contrast on
+  # the same molecules.
+  - name: kraken_vbur
+    task: regression
+    metric: spearman
+    source: kraken_library.xlsx
+    smiles_col: SMILES
+    target_col: vbur_vbur_boltz
+    local: true
+    exploratory: true
+  - name: kraken_homo
+    task: regression
+    metric: spearman
+    source: kraken_library.xlsx
+    smiles_col: SMILES
+    target_col: fmo_e_homo_boltz
+    local: true
+    exploratory: true
+
+representations:
+  - alvadesc
+  - rdkit2d
+  - mordred
+  - ecfp4
+  - maccs
+
+# --- Cross-validation ---------------------------------------------------------
+cv:
+  n_splits: 5
+  n_repeats: 5
+  # scaffold split is additionally run for classification endpoints as a harder
+  # generalisation test (see evaluate.py).
+  scaffold_for: [classification]
+
+# The tree models (random forest, HGB) are far more expensive than the linear
+# model on the wide descriptor matrices. Per the 2026-09-11 amendments in
+# ANALYSIS_PLAN.md, they run at a single repeat and with an in-fold feature cap in
+# the main comparison, while the primary linear model keeps the full 5x5 protocol
+# on all features. This trades some precision on the secondary models for a study
+# that finishes on the available hardware.
+tree_models:
+  models: [random_forest, hist_gradient_boosting]
+  n_repeats: 1
+  select_k: 500
+
+bootstrap:
+  n_resamples: 2000
+  ci: 0.95
+
+# Matched feature budget for RQ3. Every representation is reduced to each k
+# inside the training fold; k=200 is the headline, 50 the smaller check.
+matched_budget_k: [200, 50]
+
+# --- Models and hyperparameter grid (identical for every representation) ------
+# Held here so the fair-protocol test can assert one shared grid object.
+models:
+  linear:                     # primary
+    classification:
+      C: [0.01, 0.1, 1, 10]
+    regression:
+      alpha: [0.1, 1, 10, 100]
+  random_forest:
+    n_estimators: [300]
+    max_depth: [null, 8]
+    max_features: ["sqrt", 0.3]
+  hist_gradient_boosting:
+    learning_rate: [0.05, 0.1]
+    max_depth: [3, null]
+    max_iter: 300
+    early_stopping: true
+
+# Practical-cost timing subset (RQ4): a fixed number of molecules per endpoint.
+cost_subset: 500
