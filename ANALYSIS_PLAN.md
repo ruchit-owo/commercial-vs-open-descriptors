@@ -7,7 +7,7 @@ the models and the decision rule are all committed here before any result is
 computed.
 
 Written: 2026-09-10
-Author: Ruchit Ambilduke, Indian Institute of Science, Bangalore (student ID: TODO — add before submission)
+Author: Ruchit Ambilduke, Indian Institute of Science, Bangalore
 Status: pre-registered before any results were computed.
 
 ## 1. Question
@@ -18,7 +18,7 @@ small-molecule property endpoints, under one identical leak-free evaluation?
 
 Secondary: if there is an advantage, is it explained simply by alvaDesc producing
 far more features; and what does the package cost in compute time, failure rate,
-and licence friction?
+and the licence it requires?
 
 ## 2. Endpoints (fixed list — this is the pre-registration)
 
@@ -172,8 +172,8 @@ equivalence.
 
 ## 7. Decision rule (stated before seeing results)
 
-alvaDesc will be described as **worth its licence for this kind of work** only if
-all three hold:
+alvaDesc will be described as **giving a practically meaningful advantage for this
+kind of work** only if all three hold:
 
 1. the median paired improvement is at least **0.02** in AUC/ρ over the best open
    representation, and
@@ -187,8 +187,7 @@ conclusion will be reported as **no practical difference on these endpoints**.
 
 The 0.02 margin is a judgement, chosen before seeing any result: on datasets of a
 few thousand molecules a couple of hundredths of AUC or ρ is within ordinary
-run-to-run noise, so a smaller gap would not justify the cost or the loss of
-reproducibility that a commercial dependency brings.
+run-to-run noise, so a smaller gap would not count as a practical advantage.
 
 Anything decided or noticed after results exist is **exploratory** and will be
 labelled as such in the report, kept separate from the confirmatory analysis above.
@@ -209,6 +208,8 @@ change.
 | 2026-09-27 | Added two exploratory endpoints from the Kraken phosphine-ligand library (`experiments/03d_compare_kraken.py`): buried volume (%Vbur, a 3D steric property) and HOMO energy (electronic, as a contrast). These are outside the pre-registered set and are labelled exploratory. | The six confirmatory endpoints are all properties that 2D descriptors already predict well, so they cannot show whether 3D descriptors or alvaDesc help where 3D genuinely matters. Buried volume is a property driven by 3D shape, chosen as a deliberately favourable test for the 3D and commercial descriptors — the place their advantage should appear if it appears anywhere. |
 | 2026-10-09 | Clarification of the §7 matched-budget criterion after external review: `k` is a **target** feature budget, not a guaranteed effective width. The pipeline applies a zero-variance filter before `SelectKBest`, so each representation keeps `min(k, surviving columns)`. At `k = 200`, alvaDesc/Mordred/ECFP4 reach 200, RDKit reaches ~185–200, and MACCS reaches ~143–155 (it has 166 usable bits); at `k = 50` all reach 50. Effective widths are recorded in `results/effective_widths.csv` (`experiments/04b_effective_widths.py`). No result changes; the wording "same number of features" is corrected to "common target budget". | A reviewer of the write-up noted that the original phrasing overstated the match. The budget is matched in count where the columns exist, but MACCS and (on some folds) RDKit cannot supply 200; the matched-budget finding that RDKit is strongest on melting point and lipophilicity is a genuine 200-vs-200 comparison there. |
 | 2026-10-09 | Clarification of the §9 3D comparison after external review: `mordred3d` (`ignore_3D=False`) is Mordred's **full 2D+3D catalogue** (~1826 columns), used only as a 2D+3D representation, not a 3D-only block. The 3D-only head-to-head is alvaDesc-3D-only (1584) vs RDKit-3D-only (911) specifically; a Mordred 3D-only subset was not isolated. The alvaDesc-vs-RDKit 3D-only difference (median ~0.03) and the alvaDesc-vs-best-open 2D+3D difference (median ~0.004) are **point estimates without a paired confidence interval**, so they are described as descriptive comparisons, not significance tests. | The reviewer asked that the 3D-only claim not be presented as a statistically significant or general superiority over open 3D descriptors. The pre-registered §9.4 lift test (which does carry paired intervals) is unaffected: no endpoint cleared 0.02. |
+| 2026-10-09 | **Endpoint 7 (nucleoside gelation) was not completed.** Its curated dataset was not finalised in time, so six endpoints were run and reported, not the seven committed in §2. All §6–§7 analyses are over the six completed endpoints. | The gelation set depends on separate prior work that was not ready, and it was left pending rather than rushed or substituted. Its absence is recorded here rather than silently dropping it; it can be added later as an exploratory endpoint if the data is completed. |
+| 2026-10-09 | The §7 outcome label was reworded from "worth its licence for this kind of work" to "giving a practically meaningful advantage", and the 0.02 rationale was stated in neutral terms (removing the clause about justifying cost and reproducibility). No endpoint, metric, model, threshold, or decision condition changed. | Keeping the plan and the write-up neutral and tied to what was measured, rather than stating an economic verdict. |
 
 
 ## 9. 3D descriptor arm (pre-registered extension, 2026-09-26)
